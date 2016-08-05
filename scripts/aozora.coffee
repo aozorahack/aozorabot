@@ -4,7 +4,7 @@
 # Commands:
 #   aoan new <num> 
 
-AozoraClient = require('../../aozora.js/src/client').Client
+AozoraClient = require('aozora.js/src/client').Client
 client = new AozoraClient()
 
 bookinfo = (item)->
