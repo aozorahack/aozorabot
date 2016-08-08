@@ -2,7 +2,7 @@
 #   Hubot to access Aozora API
 #
 # Commands:
-#   aoan new <num> 
+#   aoan new <num>
 
 AozoraClient = require('aozora.js/src/client').Client
 client = new AozoraClient()
@@ -20,16 +20,25 @@ module.exports = (robot) ->
       .catch (err)->
         console.error err
 
-  robot.hear /book\s+(.+)$/i, (res)->
+  robot.hear /book\s+(\S+)\s*(\S+)?$/i, (res)->
     if res.match
-      client.books({title: res.match[1]})
+      params = {}
+      if res.match[2]
+        params.author = res.match[2]
+      if isNaN res.match[1]
+        params.title = res.match[1]
+      else
+        params.id = res.match[1]
+      client.books(params)
       .then (data)->
+        if not Array.isArray data
+          data = [data]
         if data.length == 0
           res.reply "見つかりませんでした..."
         else if data.length == 1
           res.reply "みつかりました!\n" + bookinfo data[0]
         else
-          res.reply "どれでしょう？\n" + (i.title for i in data).join ", "
+          res.reply "どれでしょう？\n" + ("#{i.title}/#{i.authors[0].full_name}(#{i.book_id})" for i in data).join ", "
 
     # d = new Date()
     # d.setDate(d.getDate()-1)
@@ -41,7 +50,7 @@ module.exports = (robot) ->
     # .catch (err)->
     #   console.error err
 
-    
+
 
   # robot.hear /badger/i, (res) ->
   #   res.send "Badgers? BADGERS? WE DON'T NEED NO STINKIN BADGERS"
