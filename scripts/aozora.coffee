@@ -8,7 +8,8 @@ AozoraClient = require('aozora.js/src/client').Client
 client = new AozoraClient()
 
 bookinfo = (item)->
-  "#{item.title} (#{item.authors[0].full_name}) #{item.html_url}"
+  book_url = client.book_url item.book_id, 'html'
+  "#{item.title} (#{item.authors[0].full_name}) #{book_url}"
 
 module.exports = (robot) ->
   robot.hear /new\s*(\d*)$/i, (res)->
