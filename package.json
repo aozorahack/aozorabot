@@ -5,11 +5,12 @@
   "author": "Ken Sato <ksato9700@gmail.com>",
   "description": "Bot for Aozora Bunko Information",
   "dependencies": {
+    "aozora.js": "aozorahack/aozora.js",
     "hubot": "2.19.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-help": "0.2.0",
     "hubot-slack": "4.0.1",
-    "aozora.js": "aozorahack/aozora.js"
+    "hubot-twitter": "ksato9700/hubot-twitter#fix_screenname_and_140limit"
   },
   "engines": {
     "node": "0.10.x"
